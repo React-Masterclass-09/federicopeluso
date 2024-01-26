@@ -120,60 +120,41 @@ const products = [
         "quantity": 35
     },
 ]
-const objSum = ( obj ) => {
-    let tot = 0 ;
-    for(i=0;i<obj.length;i++){
-    
-        tot += obj[i].price;
-    }
-    return tot ; 
-}
-const objSumCar = ( obj,car) => {
-    let tot = 0 ;
-    for(i=0;i<obj.length;i++){
-        if(obj[i].brand == car) tot += obj[i].price;
-    }
-    return tot ; 
-}
-const objSumCar2 = ( obj,brand = '' ) => {
-    let tot = 0 ;
-    for(i=0;i<obj.length;i++){
-        if(obj[i].brand == car) tot += obj[i].price;
-    }
-    return tot ; 
+const getPriceTot = (obj) => {
+     
+    return Object.keys(obj).reduce(
+    (tot,key) => { tot += obj[key]['price'] ; return tot; }, 0 ) ;
+
 }
 
-const setProp = (price, brand) => {
-    
-    if( price != '' && brand == ''){
-        return (obj)=>{
-            return Object.keys(obj).reduce(
-                (tot,key) => {
-                      tot = parseFloat(tot) + parseFloat(obj[key]['price']);
-                      return tot;
-                 } , 0 ) ;
-              ;
-        }
+const calcObj = ( obj, func ) => parseFloat(func(obj))
+
+
+//console.log(calcObj( products, getPriceTot) ) ; 
+
+const in_array = (arr,str)  => {
+    for(let i=0;i<arr.length;i++){
+        if( arr[i]===str) return true ; 
     }
-    if( price != '' && brand != ''){
-        return (obj)=>{
-            var sum = ( Object.values(obj).reduce( 
-                (tot,values) => {
-                    if( values.hasOwnProperty( 'brand' )  &&  values['brand'] == brand ) { tot +=parseFloat(values['price']); return tot; } 
-                     
-                } , 0 ) );
-                console.log(sum);
-        }
-    }
+    return false ; 
+}
+const in_array2 = (arr,str)  => {
+ 
+    return arr.find(el=>el===str) ; 
+}
+const array_unique = (arr,func) => {
+    let arrUnique = [] ;     
+    arr.map( (el) =>  func(arrUnique,el)?'':arrUnique.push(el) ); 
+    return arrUnique ; 
 }
 
-getPrice = setProp('yes');
-getPriceBrand = setProp('yes','Microsoft');
-console.log(getPrice( products ))  ;
-console.log(getPriceBrand( products ))  ;
+const array_unique2 = (arr,func) => {
+    arr.reduce(
+         ( arrUnique , el ) =>   func(arrUnique,el)?'':arrUnique.push(el) , [] );
+}
+let input=[1,1,'ciao','ciao', true, true]    ; 
+//console.log(array_unique(input,in_array2));
+console.log(array_unique(input,in_array2));
 
 
-
-
-//console.log(objSum( products)) ; 
 //console.log("-- "+objSumCar( products,'Logitech')) ; 
