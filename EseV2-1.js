@@ -150,6 +150,7 @@ const setProp = (price, brand) => {
             return Object.keys(obj).reduce(
                 (tot,key) => {
                       tot = parseFloat(tot) + parseFloat(obj[key]['price']);
+                      return tot;
                  } , 0 ) ;
               ;
         }
@@ -158,7 +159,7 @@ const setProp = (price, brand) => {
         return (obj)=>{
             var sum = ( Object.values(obj).reduce( 
                 (tot,values) => {
-                    if( values.hasOwnProperty( 'brand' )  &&  values['brand'] == brand ) tot +=parseFloat(values['price']);
+                    if( values.hasOwnProperty( 'brand' )  &&  values['brand'] == brand ) { tot +=parseFloat(values['price']); return tot; } 
                      
                 } , 0 ) );
                 console.log(sum);
