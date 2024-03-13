@@ -1,0 +1,6 @@
+.sidebar_custom{
+    box-shadow: 0px 2px 5px var(--primaryC);
+    height: 100%;
+    position: absolute;
+    padding: 10px;
+}
